@@ -1,0 +1,49 @@
+#chooseSex {
+  font-size: 80px;
+  div {
+    padding: 100px;
+    &:not(.active) {
+      opacity: .4;
+    }
+  }
+}
+
+form {
+  position: relative;
+}
+
+.slideBtn {
+  position: absolute;
+  top: 50%;
+  font-size: 60px;
+  transform: translateY(-50%);
+  z-index: 2;
+  cursor: pointer;
+}
+
+#prev {
+  left: 20px;
+}
+
+#next {
+  right: 20px;
+}
+
+#addPhoto {
+  border: 2px dashed var(--ion-color-primary);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  ion-icon {
+    font-size: 80px;
+  }
+}
+
+ion-list {
+  border: 1px solid #dedede;
+  border-radius: 12px;
+  padding: 0 var(--ion-padding);
+  min-width: 300px;
+}

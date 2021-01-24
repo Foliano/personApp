@@ -1,0 +1,99 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center ion-padding-top"
+        >Konfiguracja</ion-card-title
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <form #form="ngForm">
+        <ion-slides #slides [options]="slideOpts">
+          <ion-slide>
+            <div class="ion-text-center">
+              Wybierz płeć
+              <ion-row id="chooseSex">
+                <div
+                  (click)="chooseSex('man')"
+                  [class.active]="person.sex === 'man'"
+                >
+                  👦
+                </div>
+                <div
+                  (click)="chooseSex('woman')"
+                  [class.active]="person.sex === 'woman'"
+                >
+                  👧
+                </div>
+              </ion-row>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div
+              class="ion-padding ion-margin"
+              id="addPhoto"
+              (click)="addPhoto()"
+              *ngIf="person.photo.data"
+            >
+              <div class="imgOverflow">
+                <img
+                  src="data:image/{{person.photo.format}};base64,{{person.photo.data}}"
+                />
+              </div>
+            </div>
+            <div
+              class="ion-padding ion-margin"
+              id="addPhoto"
+              (click)="addPhoto()"
+              *ngIf="!person.photo.data"
+            >
+              <ion-icon name="add-circle-outline"></ion-icon>
+              Dodaj zdjęcie
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <ion-list>
+              <ion-item>
+                <ion-label position="floating">Imię</ion-label>
+                <ion-input
+                  type="text"
+                  name="name"
+                  placeholder="Wpisz imię"
+                  [(ngModel)]="person.name"
+                  required
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Data urodzenia</ion-label>
+                <ion-datetime
+                  type="text"
+                  name="birthday"
+                  displayFormat="DD-MM-YYYY"
+                  placeholder="Wybierz datę urodzenia"
+                  [(ngModel)]="person.birthday"
+                  required
+                ></ion-datetime>
+              </ion-item>
+            </ion-list>
+          </ion-slide>
+        </ion-slides>
+        <a class="slideBtn" (click)="slidePrev()" *ngIf="activeIndex" id="prev"
+          >👈</a
+        >
+        <a
+          class="slideBtn"
+          (click)="slideNext()"
+          *ngIf="activeIndex != 2"
+          id="next"
+          >👉</a
+        >
+      </form>
+      <ion-button
+        (click)="saveConfiguration()"
+        expand="block"
+        fill="solid"
+        [disabled]="!form.valid"
+        >Zapisz</ion-button
+      >
+    </ion-card-content>
+  </ion-card>
+</ion-content>

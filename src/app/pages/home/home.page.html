@@ -1,0 +1,67 @@
+<ng-template
+  #template
+  let-showEventDetail="showEventDetail"
+  let-selectedDate="selectedDate"
+  let-noEventsLabel="noEventsLabel"
+>
+  <ion-list>
+    <ion-list-header [innerText]="selectedDate.date | date"></ion-list-header>
+    <ion-item
+      *ngFor="let event of selectedDate.events"
+      (click)="openModal(event.id)"
+    >
+      <ion-icon
+        slot="start"
+        ios="bookmark-outline"
+        md="bookmark-sharp"
+        [color]="kinds[event.eventKind].color"
+      ></ion-icon>
+      <ion-label *ngIf="event.allDay">
+        <div [innerText]="event.title"></div>
+        <small>Cały dzień</small>
+      </ion-label>
+      <ion-label *ngIf="!event.allDay">
+        <div [innerText]="event.title"></div>
+        <small
+          >{{ event.startTime | date : 'hh:mm' }} - {{ event.endTime | date :
+          'hh:mm' }}</small
+        >
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ng-template>
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-justify-content-between ion-margin">
+      <ion-menu-button></ion-menu-button>
+      <div>
+        <ion-button fill="solid" color="primary" (click)="changeMode('month')"
+          >Miesiąc</ion-button
+        >
+        <ion-button fill="solid" color="primary" (click)="changeMode('week')"
+          >Tydzień</ion-button
+        >
+        <ion-button fill="solid" color="primary" (click)="changeMode('day')"
+          >Dzień</ion-button
+        >
+      </div>
+      <div>
+        <ion-button fill="solid" color="primary" (click)="loadEvents()"
+          >Losuj</ion-button
+        >
+      </div>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <calendar
+    [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    [monthviewEventDetailTemplate]="template"
+    step="30"
+  >
+  </calendar>
+</ion-content>

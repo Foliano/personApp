@@ -1,0 +1,59 @@
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="saveEvent()">
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Podaj tytuł</ion-label>
+        <ion-input [(ngModel)]="event.title" name="title" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Grupa wydarzenia</ion-label>
+        <ion-select [(ngModel)]="event.eventKind" name="eventKind">
+          <ion-select-option
+            *ngFor="let kind of kinds"
+            [innerText]="kind.value"
+            [value]="kind.key"
+            required
+          ></ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Zdarzenie całodniowe</ion-label>
+        <ion-checkbox
+          [(ngModel)]="event.allDay"
+          slot="start"
+          name="allDay"
+        ></ion-checkbox>
+      </ion-item>
+      <ion-row>
+        <ion-item>
+          <ion-label>Start wydarzenia</ion-label>
+          <ion-datetime
+            [(ngModel)]="event.startTime"
+            name="startTime"
+            displayFormat="YYYY-MM-DD hh:mm"
+            min="{{ today }}"
+          ></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Koniec wydarzenia</ion-label>
+          <ion-datetime
+            [(ngModel)]="event.endTime"
+            name="endTime"
+            displayFormat="YYYY-MM-DD hh:mm"
+            min="{{ event.startTime }}"
+          ></ion-datetime>
+        </ion-item>
+      </ion-row>
+    </ion-card>
+    <ion-button fill="outline" expand="block" (click)="dismiss()"
+      >Anuluj</ion-button
+    >
+    <ion-button
+      fill="solid"
+      expand="block"
+      [disabled]="!form.valid"
+      type="submit"
+      >{{ edit ? "Edytuj" : "Dodaj" }} wydarzenie</ion-button
+    >
+  </form>
+</ion-content>
